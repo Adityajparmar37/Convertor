@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/2fc2e36707.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Language Translator</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', 'sans-serif';
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        margin: 0;
+        background: linear-gradient(to right bottom, #d13cff, #031f6a);
+        color: #000;
+        box-sizing: border-box;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* min-height: 100vh; */
+    }
+
+    h1 {
+
+        font-size: 55px;
+        color: #ffffff;
+        background-image: -webkit-linear-gradient(315deg, #ffffff 43%, rgb(247, 241, 170) 53%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        margin-top: 8%;
+
+    }
+
+    /* back arrow */
+
+    a {
+        margin-left: 20px;
+        text-decoration: none;
+        color: #fff;
+        font-size: 20px;
+    }
+
+
+    .arrow {
+        /* cursor: pointer; */
+        transform: translateX(-50%) translateY(-50%);
+        transition: transform 0.1s;
+        width: 30px;
+        margin-top: 50px;
+        margin-left: 50px;
+        z-index: 1;
+    }
+
+    .arrow-top,
+    .arrow-bottom {
+        background-color: #666;
+        height: 4px;
+        left: -5px;
+        position: absolute;
+        top: 50%;
+        width: 100%;
+    }
+
+    .arrow-bottom:after {
+        background-color: #fff;
+        content: "";
+        height: 100%;
+        position: absolute;
+        top: 0;
+        transition: all 0.1s;
+    }
+
+    .arrow-top:after {
+        background-color: yellow;
+        content: "";
+        height: 100%;
+        position: absolute;
+        top: 0;
+        transition: all 0.1s;
+    }
+
+    .arrow-top {
+        transform: rotate(-45deg);
+        transform-origin: bottom left;
+    }
+
+    .arrow-top:after {
+        right: 100%;
+        left: 0;
+        transition-delay: 0s;
+    }
+
+    .arrow-bottom {
+        transform: rotate(45deg);
+        transform-origin: top left;
+    }
+
+    .arrow-bottom:after {
+        right: 0;
+        left: 100%;
+        transition-delay: 0.15s;
+    }
+
+    .arrow:hover .arrow-top:after {
+        right: 0;
+        transition-delay: 0.15s;
+    }
+
+    .arrow:hover .arrow-bottom:after {
+        left: 0;
+        transition-delay: 0s;
+    }
+
+    .arrow:active {
+        transform: translateX(50%) translateY(-50%) scale(0.9);
+    }
+
+    .arrow span {
+        display: block;
+        width: 3em;
+        opacity: 0;
+        transition: opacity 0.3s 0s;
+        padding: 0 0.5em;
+    }
+
+    .arrow:hover span {
+        opacity: 1;
+        transition: opacity 0.3s 0.1s;
+        animation: slideIn 0.5s ease-in-out;
+    }
+
+    @keyframes slideIn {
+        0% {
+            transform: translateX(-40%);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+
+    .container {
+        width: 750px;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 30px;
+        /* margin-bottom: 20%; */
+        margin-top: 2%;
+    }
+
+    .wrapper {
+        border-radius: 5px;
+        border: 1px solid #bbb;
+    }
+
+    .wrapper .text-input {
+        display: flex;
+        border-bottom: 1px solid #bbb;
+    }
+
+    .text-input .to-text {
+        border-left: 1px solid #bbb;
+        border-radius: 0px;
+    }
+
+    .text-input textarea {
+        height: 280px;
+        width: 100%;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 18px;
+        border-radius: 5px;
+        padding: 10px 15px;
+        resize: none;
+    }
+
+    .controls,
+    li,
+    .icons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .controls {
+        list-style: none;
+        padding: 12px 15px;
+    }
+
+    .controls .icons {
+        width: 38%;
+    }
+
+    .controls .icons i {
+        color: #9f9f9f;
+        font-size: 18px;
+        cursor: pointer;
+        width: 50px;
+    }
+
+    .controls .row select {
+        border: none;
+        outline: none;
+        font-size: 22px;
+        background: none;
+    }
+
+    .controls .exchange {
+
+        color: #9f9f9f;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .controls .row.from .icons {
+        padding-right: 15px;
+        border-right: 1px solid #bbb;
+    }
+
+    .controls .row.to .icons {
+        padding-left: 15px;
+        border-left: 1px solid #bbb;
+    }
+
+    .btn {
+        /* background-color: #d13cff; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    button {
+        width: 750px;
+        padding: 14px;
+        margin-top: 50px;
+        border: none;
+        outline: none;
+        background: #5372F0;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 22px;
+        cursor: pointer;
+        margin-bottom: 10%;
+    }
+
+    button {
+        padding: 15px 20px;
+        background: #0d90c0;
+        border: 0;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+
+        box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55);
+        -webkit-box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55);
+        -moz-box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55);
+    }
+
+    button:hover {
+
+        box-shadow: 0px 1px 2px 0px rgba(0, 255, 255, 0.7),
+            1px 2px 4px 0px rgba(0, 255, 255, 0.7),
+            2px 4px 8px 0px rgba(0, 255, 255, 0.7),
+            2px 4px 16px 0px rgba(0, 255, 255, 0.7);
+
+    }
+</style>
+
+<body>
+    <div class="arrow">
+        <span><a href="/HOME/index.html">Home</span></a>
+        <div class="arrow-top"></div>
+        <div class="arrow-bottom"></div>
+    </div>
+
+    <h1>Translator</h1>
+    <form>
+        <div class="container">
+            <div class="wrapper">
+                <div class="text-input">
+                    <textarea class="from-text" placeholder="Enter text"></textarea>
+                    <textarea class="to-text" placeholder="Translation" readonly disabled></textarea>
+                </div>
+                <ul class="controls">
+                    <li class="row from">
+                        <div class="icons">
+                            <i id="from" class="fas fa-volume-up"></i>
+                            <i id="from" class="fas fa-copy"></i>
+                        </div>
+                        <select>
+                        </select>
+                    </li>
+                    <li class="exchange"><i class="fas fa-exchange-alt"></i></li>
+                    <li class="row to">
+                        <select>
+                        </select>
+                        <div class="icons">
+                            <i id="to" class="fas fa-volume-up"></i>
+                            <i id="to" class="fas fa-copy"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+
+    <div class="btn">
+        <button>Translate Text</button>
+    </div>
+
+    <script>
+        const countries = {
+            "am-ET": "Amharic",
+            "ar-SA": "Arabic",
+            "be-BY": "Bielarus",
+            "bem-ZM": "Bemba",
+            "bi-VU": "Bislama",
+            "bjs-BB": "Bajan",
+            "bn-IN": "Bengali",
+            "bo-CN": "Tibetan",
+            "br-FR": "Breton",
+            "bs-BA": "Bosnian",
+            "ca-ES": "Catalan",
+            "cop-EG": "Coptic",
+            "cs-CZ": "Czech",
+            "cy-GB": "Welsh",
+            "da-DK": "Danish",
+            "dz-BT": "Dzongkha",
+            "de-DE": "German",
+            "dv-MV": "Maldivian",
+            "el-GR": "Greek",
+            "en-GB": "English",
+            "es-ES": "Spanish",
+            "et-EE": "Estonian",
+            "eu-ES": "Basque",
+            "fa-IR": "Persian",
+            "fi-FI": "Finnish",
+            "fn-FNG": "Fanagalo",
+            "fo-FO": "Faroese",
+            "fr-FR": "French",
+            "gl-ES": "Galician",
+            "gu-IN": "Gujarati",
+            "ha-NE": "Hausa",
+            "he-IL": "Hebrew",
+            "hi-IN": "Hindi",
+            "hr-HR": "Croatian",
+            "hu-HU": "Hungarian",
+            "id-ID": "Indonesian",
+            "is-IS": "Icelandic",
+            "it-IT": "Italian",
+            "ja-JP": "Japanese",
+            "kk-KZ": "Kazakh",
+            "km-KM": "Khmer",
+            "kn-IN": "Kannada",
+            "ko-KR": "Korean",
+            "ku-TR": "Kurdish",
+            "ky-KG": "Kyrgyz",
+            "la-VA": "Latin",
+            "lo-LA": "Lao",
+            "lv-LV": "Latvian",
+            "men-SL": "Mende",
+            "mg-MG": "Malagasy",
+            "mi-NZ": "Maori",
+            "ms-MY": "Malay",
+            "mt-MT": "Maltese",
+            "my-MM": "Burmese",
+            "ne-NP": "Nepali",
+            "niu-NU": "Niuean",
+            "nl-NL": "Dutch",
+            "no-NO": "Norwegian",
+            "ny-MW": "Nyanja",
+            "ur-PK": "Pakistani",
+            "pau-PW": "Palauan",
+            "pa-IN": "Panjabi",
+            "ps-PK": "Pashto",
+            "pis-SB": "Pijin",
+            "pl-PL": "Polish",
+            "pt-PT": "Portuguese",
+            "rn-BI": "Kirundi",
+            "ro-RO": "Romanian",
+            "ru-RU": "Russian",
+            "sg-CF": "Sango",
+            "si-LK": "Sinhala",
+            "sk-SK": "Slovak",
+            "sm-WS": "Samoan",
+            "sn-ZW": "Shona",
+            "so-SO": "Somali",
+            "sq-AL": "Albanian",
+            "sr-RS": "Serbian",
+            "sv-SE": "Swedish",
+            "sw-SZ": "Swahili",
+            "ta-LK": "Tamil",
+            "te-IN": "Telugu",
+            "tet-TL": "Tetum",
+            "tg-TJ": "Tajik",
+            "th-TH": "Thai",
+            "ti-TI": "Tigrinya",
+            "tk-TM": "Turkmen",
+            "tl-PH": "Tagalog",
+            "tn-BW": "Tswana",
+            "to-TO": "Tongan",
+            "tr-TR": "Turkish",
+            "uk-UA": "Ukrainian",
+            "uz-UZ": "Uzbek",
+            "vi-VN": "Vietnamese",
+            "wo-SN": "Wolof",
+            "xh-ZA": "Xhosa",
+            "yi-YD": "Yiddish",
+            "zu-ZA": "Zulu"
+        }
+    </script>
+    <script>
+        const fromText = document.querySelector(".from-text");
+        const toText = document.querySelector(".to-text");
+        const exchangeIcon = document.querySelector(".exchange");
+        const selectTag = document.querySelectorAll("select");
+        const translateBtn = document.querySelector("button");
+        icons = document.querySelectorAll(".row i");
+
+        selectTag.forEach((tag, id) => {
+            // console.log(tag);
+
+            for (const country_code in countries) {
+                // console.log(countries[country_code]);
+                let selected;
+                if (id == 0 && country_code == "en-GB") {
+                    selected = "selected";
+                } else if (id == 1 && country_code == "hi-IN") {
+                    selected = "selected";
+                }
+                let option = `<option value="${country_code}" ${selected}>${countries[country_code]}</option>`;
+                tag.insertAdjacentHTML("beforeend", option);
+            }
+
+        });
+
+
+
+        exchangeIcon.addEventListener("click", () => {
+            let tempText = fromText.value,
+                tempLang = selectTag[0].value;
+            fromText.value = toText.value;
+            selectTag[0].value = selectTag[1].value;
+            toText.value = tempText
+            selectTag[1].value = tempLang;
+        })
+
+
+
+        translateBtn.addEventListener("click", () => {
+            let text = fromText.value;
+            translateFrom = selectTag[0].value,
+                translateto = selectTag[1].value;
+
+            if (!text) return;
+            toText.setAttribute("placehoder", "Translating..");
+
+            let apiURL = `https://api.mymemory.translated.net/get?q=${text}&langpair=${translateFrom}|${translateto}`
+
+            fetch(apiURL).then(res => res.json()).then(data => {
+                // console.log(data);
+                toText.value = data.responseData.translatedText;
+                toText.setAttribute("placehoder", "Translation");
+            });
+        });
+
+        icons.forEach(icon => {
+            icon.addEventListener("click", ({ target }) => {
+                // console.log(target);
+
+                if (target.classList.contains("fa-copy")) {
+                    if (target.id == "from") {
+                        navigator.clipboard.writeText(fromText.value);
+                    } else {
+                        navigator.clipboard.writeText(toText.value);
+                    }
+                } else {
+                    let utterance;
+
+                    if (target.id == "from") {
+                        utterance = new SpeechSynthesisUtterance(fromText.value)
+                        utterance.lang = selectTag[0].value;
+
+                    } else {
+                        utterance = new SpeechSynthesisUtterance(toText.value)
+                        utterance.lang = selectTag[1].value;
+                    }
+
+                    speechSynthesis.speak(utterance);
+                }
+            });
+        })
+    </script>
+
+</body>
+
+</html>

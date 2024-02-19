@@ -1,0 +1,216 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to right bottom, #d13cff, #031f6a);
+    color: #000;
+    font-size: 16px;
+    overflow: hidden;
+}
+
+/* back arrow */
+
+
+a {
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 20px;
+
+}
+
+
+.arrow {
+    /* cursor: pointer; */
+    transform: translateX(-50%) translateY(-50%);
+    transition: transform 0.1s;
+    width: 30px;
+    margin-top: 50px;
+    margin-left: 50px;
+    z-index: 1;
+}
+
+.arrow-top,
+.arrow-bottom {
+    background-color: #666;
+    height: 4px;
+    left: -5px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+
+.arrow-bottom:after {
+    background-color: #fff;
+    content: "";
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: all 0.1s;
+}
+
+.arrow-top:after {
+    background-color: yellow;
+    content: "";
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: all 0.1s;
+}
+
+.arrow-top {
+    transform: rotate(-45deg);
+    transform-origin: bottom left;
+}
+
+.arrow-top:after {
+    right: 100%;
+    left: 0;
+    transition-delay: 0s;
+}
+
+.arrow-bottom {
+    transform: rotate(45deg);
+    transform-origin: top left;
+}
+
+.arrow-bottom:after {
+    right: 0;
+    left: 100%;
+    transition-delay: 0.15s;
+}
+
+.arrow:hover .arrow-top:after {
+    right: 0;
+    transition-delay: 0.15s;
+}
+
+.arrow:hover .arrow-bottom:after {
+    left: 0;
+    transition-delay: 0s;
+}
+
+.arrow:active {
+    transform: translateX(50%) translateY(-50%) scale(0.9);
+}
+
+.arrow span {
+    display: block;
+    width: 3em;
+    opacity: 0;
+    transition: opacity 0.3s 0s;
+    padding: 0 0.5em;
+}
+
+.arrow:hover span {
+    opacity: 1;
+    transition: opacity 0.3s 0.1s;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(-40%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 50px;
+    color: #ffffff;
+    background-image: -webkit-linear-gradient(315deg, #ffffff 43%, rgb(247, 241, 170) 53%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text {
+    /* width: 100%; */
+    height: 250px;
+    border-radius: 10px;
+    resize: none;
+    font-size: 20px;
+    margin-bottom: 25px;
+    border-style: none;
+    padding: 15px;
+
+    box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55) inset;
+    -webkit-box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55) inset;
+    -moz-box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55) inset;
+
+}
+
+label {
+    font-size: 26px;
+    color: #ffff;
+    background-image: -webkit-linear-gradient(315deg, #ffffff 50%, rgb(247, 241, 170) 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.name {
+    font-size: 20px;
+    color: rgba(107, 105, 105, 0.895);
+}
+
+.submit {
+    padding: 12px 20px;
+    background: #0ea4dacf;
+    border: 0;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 25px;
+    box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55);
+    -webkit-box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55);
+}
+
+.submit:hover {
+
+    box-shadow: 0px 1px 2px 0px rgba(0, 255, 255, 0.7),
+        1px 2px 4px 0px rgba(0, 255, 255, 0.7),
+        2px 4px 8px 0px rgba(0, 255, 255, 0.7),
+        2px 4px 16px 0px rgba(0, 255, 255, 0.7);
+
+}
+
+.Download {
+    padding: 12px 20px;
+    background: #0ea4dacf;
+    position: absolute;
+    left: 760px;
+    width: 120px;
+    border: 0;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 25px;
+    margin-left: 450px;
+    box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55);
+    -webkit-box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: 10px 8px 9px -5px rgba(0, 0, 0, 0.55);
+}
+
+.Download:hover {
+
+    box-shadow: 0px 1px 2px 0px rgba(0, 255, 255, 0.7),
+        1px 2px 4px 0px rgba(0, 255, 255, 0.7),
+        2px 4px 8px 0px rgba(0, 255, 255, 0.7),
+        2px 4px 16px 0px rgba(0, 255, 255, 0.7);
+
+}
