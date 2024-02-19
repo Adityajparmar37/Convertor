@@ -26,4 +26,4 @@ Contributions to the Convertor project are welcome! If you find any bugs or have
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
-![Example Image](images/example.png)
+![Example Image](images)
