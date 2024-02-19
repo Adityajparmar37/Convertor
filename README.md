@@ -26,4 +26,9 @@ Contributions to the Convertor project are welcome! If you find any bugs or have
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
-![Example Image](images)
+## Images
+
+![Image 1](./Images/1( Home Page ).png)
+![Image 2](./Images/5 ( Converting text to speech , output ).png)
+![Image 3](./Images/12 (Output of speech to text ).png)
+![Image 4](./Images/17 ( output , translated in desired output ).png)
